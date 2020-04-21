@@ -1,0 +1,31 @@
+#spring:
+#  jackson:
+    # json -> object deserialization
+    # object -> json serialization
+#    deserialization:
+      # object 로 받을 수 없는 프로퍼티가 있을 경우 실패 badRequest
+#      fail-on-unknown-properties: true
+
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

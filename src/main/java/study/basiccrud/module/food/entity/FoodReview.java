@@ -1,9 +1,14 @@
 package study.basiccrud.module.food.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+@Getter
+@EqualsAndHashCode(of = "id")
 @Entity
 public class FoodReview {
 

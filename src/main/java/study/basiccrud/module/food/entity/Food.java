@@ -1,10 +1,13 @@
 package study.basiccrud.module.food.entity;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(of = {"id"})
+@Getter
+@EqualsAndHashCode(of = "id")
 @Entity
 public class Food {
 
@@ -22,4 +25,12 @@ public class Food {
     private Integer price;
 
     private String desc;
+
+    @Builder
+    public Food(FoodTypes type, String name, Integer price, String desc) {
+        this.type = type;
+        this.name = name;
+        this.price = price;
+        this.desc = desc;
+    }
 }

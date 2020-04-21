@@ -3,12 +3,14 @@ package study.basiccrud.module.food.entity;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @EqualsAndHashCode(of = "id")
 @Entity
+@NoArgsConstructor
 public class Food {
 
     @Id @GeneratedValue

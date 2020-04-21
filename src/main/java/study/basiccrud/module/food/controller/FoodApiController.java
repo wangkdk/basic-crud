@@ -25,14 +25,14 @@ public class FoodApiController {
     public ResponseEntity saveFood(@RequestBody @Valid FoodSaveRequestDto foodCreateDto, Errors errors) {
 
         if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(errors);
+            return ResponseEntity.badRequest().build();
         }
 
-        foodValidator.validate(foodCreateDto, errors);
+//        foodValidator.validate(foodCreateDto, errors);
 
-        if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(errors);
-        }
+//        if (errors.hasErrors()) {
+//            return ResponseEntity.badRequest().body(errors);
+//        }
 
         return ResponseEntity.ok().body(foodService.saveFood(foodCreateDto));
     }

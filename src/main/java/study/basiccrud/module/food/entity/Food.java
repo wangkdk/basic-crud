@@ -35,4 +35,11 @@ public class Food {
         this.price = price;
         this.desc = desc;
     }
+
+    public void updateFood(FoodTypes type, String name, Integer price, String desc) {
+        this.type = type;
+        this.name = name;
+        this.price = price;
+        this.desc = desc;
+    }
 }

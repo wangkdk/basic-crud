@@ -1,5 +1,6 @@
 package study.basiccrud.module.food.entity;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -27,4 +28,10 @@ public class FoodReview {
     @JoinColumn(name = "food_id")
     private Food food;
 
+    @Builder
+    public FoodReview(String comment, Integer score, Food food) {
+        this.comment = comment;
+        this.score = score;
+        this.food = food;
+    }
 }

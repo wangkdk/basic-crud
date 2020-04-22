@@ -1,45 +1,22 @@
 package study.basiccrud.module.food.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.parameters.P;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 import study.basiccrud.module.food.dto.FoodSaveRequestDto;
 import study.basiccrud.module.food.dto.FoodUpdateRequestDto;
 import study.basiccrud.module.food.entity.Food;
 import study.basiccrud.module.food.entity.FoodTypes;
-import study.basiccrud.module.food.repository.FoodRepository;
 
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-class FoodApiControllerTest {
-
-    @Autowired
-    MockMvc mockMvc;
-
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @Autowired
-    FoodRepository foodRepository;
+class FoodApiControllerTest extends BaseFoodControllerTest{
 
     @Test
     @DisplayName("음식 저장 테스트")
@@ -101,9 +78,7 @@ class FoodApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        // 존재하지 않으면 위 테스트에서 이미 오류
-        // 영속성 컨텍스트 테스트 해보자
-        Food findFood = foodRepository.findById(1L).get();
+        Food findFood = foodRepository.findById(savedFood.getId()).get();
         assertEquals(FoodTypes.AMERICAN, findFood.getType());
         assertEquals("돼지 갈비찜2", findFood.getName());
         assertEquals(10000, findFood.getPrice());
@@ -178,14 +153,4 @@ class FoodApiControllerTest {
 
     }
 
-    private Food generateFood(int idx) {
-        Food food = Food.builder()
-                .type(FoodTypes.KOREAN)
-                .name("test" + idx)
-                .price(10000)
-                .desc("테스트용")
-                .build();
-
-        return foodRepository.save(food);
-    }
 }

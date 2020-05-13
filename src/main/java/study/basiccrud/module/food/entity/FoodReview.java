@@ -3,6 +3,8 @@ package study.basiccrud.module.food.entity;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import study.basiccrud.module.food.dto.FoodReviewUpdateRequestDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -11,6 +13,7 @@ import javax.validation.constraints.Min;
 @Getter
 @EqualsAndHashCode(of = "id")
 @Entity
+@NoArgsConstructor
 public class FoodReview {
 
     @Id @GeneratedValue
@@ -33,5 +36,10 @@ public class FoodReview {
         this.comment = comment;
         this.score = score;
         this.food = food;
+    }
+
+    public void update(FoodReviewUpdateRequestDto foodReviewUpdateRequestDto) {
+        this.comment = foodReviewUpdateRequestDto.getComment();
+        this.score = foodReviewUpdateRequestDto.getScore();
     }
 }

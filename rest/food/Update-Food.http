@@ -1,4 +1,9 @@
-POST http://localhost:8080/api/v1/food/1
+PUT http://localhost:8080/api/v1/food/1
 Content-Type: application/json
 
-###
+{
+  "type" : "KOREAN",
+  "name" : "김치찌개",
+  "price" : "7000",
+  "desc" : "돼지고기가 들어간 김치찌개"
+}

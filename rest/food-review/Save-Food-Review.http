@@ -1,0 +1,8 @@
+POST http://localhost:8080/api/v1/food/review
+Content-Type: application/json
+
+{
+  "comment" : "너무맛있었습니다.",
+  "score" : 8,
+  "foodId" : 1
+}

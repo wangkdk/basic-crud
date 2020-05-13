@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import study.basiccrud.module.food.dto.FoodReviewSaveRequestDto;
+import study.basiccrud.module.food.dto.FoodReviewUpdateRequestDto;
 import study.basiccrud.module.food.entity.FoodReview;
 import study.basiccrud.module.food.repository.FoodRepository;
 import study.basiccrud.module.food.repository.FoodReviewRepository;
@@ -45,5 +46,14 @@ public class FoodReviewApiController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(foodReviewService.saveFoodReview(foodReviewSaveRequestDto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateFoodReview(@PathVariable Long id,
+            @RequestBody @Valid FoodReviewUpdateRequestDto foodReviewUpdateRequestDto, Errors errors) {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(foodReviewService.updateFoodReview(id, foodReviewUpdateRequestDto));
     }
 }

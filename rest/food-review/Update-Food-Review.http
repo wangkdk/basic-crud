@@ -1,0 +1,7 @@
+PUT http://localhost:8080/api/v1/food/review/2
+Content-Type: application/json
+
+{
+  "comment" : "조금 짯지만 맛있었습니다.",
+  "score" : 7
+}

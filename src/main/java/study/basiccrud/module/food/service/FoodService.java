@@ -34,4 +34,12 @@ public class FoodService {
         food.updateFood(foodUpdateDto.getType(), foodUpdateDto.getName(), foodUpdateDto.getPrice(), foodUpdateDto.getDesc());
         return food.getId();
     }
+
+    @Transactional
+    public Long deleteFood(Long id) {
+        Food food = foodRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 음식이 존재하지 않습니다 id=" + id));
+        foodRepository.delete(food);
+        // flush 가 일어나기 전이니까 id가 살아있음
+        return food.getId();
+    }
 }

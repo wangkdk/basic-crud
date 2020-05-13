@@ -64,4 +64,9 @@ public class FoodApiController {
         }
         return ResponseEntity.ok().body(foodService.updateFood(id, foodUpdateDto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteFood(@PathVariable Long id) {
+        return ResponseEntity.ok(foodService.deleteFood(id));
+    }
 }

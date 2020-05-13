@@ -3,7 +3,7 @@
     # json -> object deserialization
     # object -> json serialization
 #    deserialization:
-      # object ·Î ¹ŞÀ» ¼ö ¾ø´Â ÇÁ·ÎÆÛÆ¼°¡ ÀÖÀ» °æ¿ì ½ÇÆĞ badRequest
+      # object ë¡œ ë°›ì„ ìˆ˜ ì—†ëŠ” í”„ë¡œí¼í‹°ê°€ ìˆì„ ê²½ìš° ì‹¤íŒ¨ badRequest
 #      fail-on-unknown-properties: true
 
 

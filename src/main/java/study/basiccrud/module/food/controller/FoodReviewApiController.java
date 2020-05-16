@@ -56,4 +56,9 @@ public class FoodReviewApiController {
         }
         return ResponseEntity.ok(foodReviewService.updateFoodReview(id, foodReviewUpdateRequestDto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteFoodReview(@PathVariable Long id) {
+        return ResponseEntity.ok(foodReviewService.deleteFoodReview(id));
+    }
 }

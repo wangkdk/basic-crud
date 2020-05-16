@@ -42,4 +42,12 @@ public class FoodReviewService {
 
         return foodReview.getId();
     }
+
+    @Transactional
+    public Long deleteFoodReview(Long id) {
+        FoodReview foodReview = foodReviewRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 존재하지 않습니다. id =" + id));
+        foodReviewRepository.delete(foodReview);
+        return foodReview.getId();
+    }
 }

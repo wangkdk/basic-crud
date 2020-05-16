@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @EqualsAndHashCode(of = "id")
@@ -27,6 +29,9 @@ public class Food {
     private Integer price;
 
     private String desc;
+
+    @OneToMany(mappedBy = "food", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<FoodReview> foodReviews = new ArrayList<>();
 
     @Builder
     public Food(FoodTypes type, String name, Integer price, String desc) {

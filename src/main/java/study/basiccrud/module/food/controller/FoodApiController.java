@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import study.basiccrud.module.food.dto.FoodResponseDto;
 import study.basiccrud.module.food.dto.FoodSaveRequestDto;
 import study.basiccrud.module.food.dto.FoodUpdateRequestDto;
 import study.basiccrud.module.food.entity.Food;
@@ -26,8 +27,9 @@ public class FoodApiController {
     private final FoodValidator foodValidator;
 
     @GetMapping
-    public ResponseEntity getFoods(Pageable pageable) {
-        Page<Food> list = foodRepository.findAll(pageable);
+    public ResponseEntity getFoods(Pageable pageable, FoodSearchCondition condition) {
+//        Page<Food> list = foodRepository.findAll(pageable);
+        Page<FoodResponseDto> list = foodRepository.searchPage(pageable, condition);
         return ResponseEntity.ok(list);
     }
 

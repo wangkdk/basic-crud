@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Food {
 
     private String desc;
 
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "food", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<FoodReview> foodReviews = new ArrayList<>();
 

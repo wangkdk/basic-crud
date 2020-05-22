@@ -149,6 +149,7 @@ class FoodApiControllerTest extends BaseFoodControllerTest{
                 .andExpect(jsonPath("totalElements").value(30))
                 .andExpect(jsonPath("totalPages").value(3))
                 .andExpect(jsonPath("sort").exists())
+//                .andExpect(jsonPath("content[0].foodReviews").exists())
                 .andExpect(status().isOk());
 
     }

@@ -1,6 +1,7 @@
 package study.basiccrud.module.food.repository;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -9,11 +10,13 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import study.basiccrud.module.food.controller.FoodSearchCondition;
 import study.basiccrud.module.food.dto.FoodResponseDto;
 import study.basiccrud.module.food.entity.Food;
+import study.basiccrud.module.food.entity.FoodTypes;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.util.StringUtils.hasText;
 import static study.basiccrud.module.food.entity.QFood.food;
 
 public class FoodRepositoryImpl extends QuerydslRepositorySupport implements FoodRepositoryCustom {
@@ -59,17 +62,30 @@ public class FoodRepositoryImpl extends QuerydslRepositorySupport implements Foo
          */
         QueryResults<Food> queryResults = queryFactory
                 .selectFrom(food)
+                .where(
+                        typeEq(condition.getType()),
+                        nameEq(condition.getName())
+                )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
 
         List<Food> content = queryResults.getResults();
 
+        // TODO : 만약 리뷰의 컬럼으로 condition 이 걸린다면..?
         List<FoodResponseDto> collect = content.stream().map(FoodResponseDto::new)
                 .collect(Collectors.toList());
 
         long total = queryResults.getTotal();
 
         return new PageImpl<>(collect, pageable, total);
+    }
+
+    private BooleanExpression typeEq(FoodTypes types) {
+        return types != null ? food.type.eq(types) : null;
+    }
+
+    private BooleanExpression nameEq(String name) {
+        return hasText(name) ? food.name.eq(name) : null;
     }
 }

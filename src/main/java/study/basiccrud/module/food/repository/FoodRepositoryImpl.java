@@ -60,25 +60,32 @@ public class FoodRepositoryImpl extends QuerydslRepositorySupport implements Foo
          * to one 관계인 것만 먼저 fetch join 처리 후
          * @BatchSize 를 통해 collection 들은 따로 처리해 주어야 페이징이 가능해진다.
          */
-        QueryResults<Food> queryResults = queryFactory
-                .selectFrom(food)
-                .where(
-                        typeEq(condition.getType()),
-                        nameEq(condition.getName())
-                )
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetchResults();
+        QueryResults<Food> queryResults = getFoodQueryResults(pageable, condition);
 
         List<Food> content = queryResults.getResults();
-
-        // TODO : 만약 리뷰의 컬럼으로 condition 이 걸린다면..?
-        List<FoodResponseDto> collect = content.stream().map(FoodResponseDto::new)
-                .collect(Collectors.toList());
-
         long total = queryResults.getTotal();
 
+        // TODO : 만약 리뷰의 컬럼으로 condition 이 걸린다면..?
+        List<FoodResponseDto> collect = getFoodResponseDtos(content);
+
         return new PageImpl<>(collect, pageable, total);
+    }
+
+    private List<FoodResponseDto> getFoodResponseDtos(List<Food> content) {
+        return content.stream().map(FoodResponseDto::new)
+                    .collect(Collectors.toList());
+    }
+
+    private QueryResults<Food> getFoodQueryResults(Pageable pageable, FoodSearchCondition condition) {
+        return queryFactory
+                    .selectFrom(food)
+                    .where(
+                            typeEq(condition.getType()),
+                            nameEq(condition.getName())
+                    )
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetchResults();
     }
 
     private BooleanExpression typeEq(FoodTypes types) {

@@ -136,6 +136,9 @@ class FoodApiControllerTest extends BaseFoodControllerTest{
         // Given
         IntStream.range(0, 30).forEach(this::generateFood);
 
+        em.flush();
+        em.clear();
+
         // When & Then
         this.mockMvc.perform(get("/api/v1/food")
                     .param("page", "1")
@@ -149,7 +152,7 @@ class FoodApiControllerTest extends BaseFoodControllerTest{
                 .andExpect(jsonPath("totalElements").value(30))
                 .andExpect(jsonPath("totalPages").value(3))
                 .andExpect(jsonPath("sort").exists())
-//                .andExpect(jsonPath("content[0].foodReviews").exists())
+                .andExpect(jsonPath("content[0].foodReviews[0]").exists())
                 .andExpect(status().isOk());
 
     }

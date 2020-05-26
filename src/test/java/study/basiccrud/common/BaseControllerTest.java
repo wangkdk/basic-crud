@@ -7,10 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 @SpringBootTest
 @AutoConfigureMockMvc
-// TODO : 현재는 내장 DB 라서 상관없지만 내장이 아닌 DB를 이용할 경우에는 필요할 수도 있다. rollback 기능
-//@Transactional
+@Transactional
 public class BaseControllerTest {
 
     @Autowired
@@ -18,4 +19,7 @@ public class BaseControllerTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected EntityManager em;
 }

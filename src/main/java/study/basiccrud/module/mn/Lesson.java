@@ -19,5 +19,5 @@ public class Lesson {
     private int price;
 
     @OneToMany(mappedBy = "lesson")
-    private List<Enrolment> enrolments = new ArrayList<>();
+    private List<LessonApply> lessonApplies = new ArrayList<>();
 }

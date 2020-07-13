@@ -18,6 +18,6 @@ public class Student {
     private int grade;
 
     @OneToMany(mappedBy = "student")
-    private List<Enrolment> enrolments = new ArrayList<>();
+    private List<LessonApply> lessonApplies = new ArrayList<>();
 
 }
